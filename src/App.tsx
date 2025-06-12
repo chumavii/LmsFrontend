@@ -1,18 +1,33 @@
 
 import './App.css'
-import { useState } from 'react';
-import CourseList from './components/course-list';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LoginForm from './components/login-form';
+import PrivateRoute from './components/private-route';
+import { useAuth } from './contexts/auth-context';
+import Dashboard from './components/dashboard';
+
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(!!localStorage.getItem('token'));
+  const { login } = useAuth(); // This is from your AuthContext
+
+  const handleLoginSuccess = (token: string) => {
+    login(token);
+  };
 
   return (
-    <div className="max-w-3xl mx-auto mt-8">
-      <h1 className="text-2xl font-bold text-center mb-6">Learning Management System</h1>
-      {loggedIn ? <CourseList /> : <LoginForm onLoginSuccess={() => setLoggedIn(true)} />}
-    </div>
+    <Router>
+        <Routes>
+          <Route path="/login" element={<LoginForm onLoginSuccess={handleLoginSuccess} />} />
+          <Route path="/" element={
+              <PrivateRoute>
+                  <Dashboard />
+              </PrivateRoute>
+            }
+          />
+        </Routes>
+    </Router>
   );
 }
+
 
 export default App

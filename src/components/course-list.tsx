@@ -11,10 +11,13 @@ export default function CourseList() {
             .catch(err => setError(err.message));
     }, []);
 
-    if (error) return <p>Error: {error}</p>;
+    if (error)
+        return <p>Error: {error}</p>;
 
     return (
         <div className="p-4">
+
+            <h1 className="text-2xl font-bold text-center mb-6">Learning Management System</h1>
             <h2 className="text-xl font-bold mb-4">Courses</h2>
             <ul className="space-y-3">
                 {courses.map(course => (
