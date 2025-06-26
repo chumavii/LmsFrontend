@@ -6,34 +6,61 @@ body, #root {
   height: 100vh;
   width: 100vw;
   margin: 0;
-  background-color: #1f3349;
+  background-color: rgb(9, 32, 56);
 }
 
 h1 {
-  font-size: 3.2em;
+  font-size: 2.3em;
   line-height: 1.1;
 }
 
 @layer components {
-  .Nav {
-    @apply flex justify-end p-4 border-b-1 shadow-md border-gray-300
+  .logo {
+    @apply m-6 h-10
+  }
+  
+  .nav {
+    @apply flex justify-between p-6 border-b-1 shadow-md border-gray-300
+  }
+  
+  .logout-button {
+    @apply flex 
+  }
+
+  .left-nav {
+    @apply space-y-2 p-4 mt-10
+  }
+
+  .left-nav-link {
+    @apply flex gap-3 items-center p-2 rounded text-gray-300 font-medium hover:bg-[#355475]
+  }
+
+  .left-nav-link-active {
+    @apply flex gap-3 items-center p-2 rounded text-orange-300 font-medium hover:bg-[#355475]
   }
 
   .btn-primary {
-    background-color: #1f3349;
-    @apply w-full text-white px-4 py-3 rounded hover:bg-slate-700 transition;
-  }
-  
-    .text-input {
-    @apply w-full mb-3 p-2 border-gray-300 border rounded;
+    @apply bg-[#1f3349] w-full text-white px-4 py-3 rounded hover:bg-slate-700 transition
   }
 
-  .form {
+  .btn-secondary {
+    @apply bg-orange-400 hover:bg-orange-500 text-white px-4 py-2 rounded
+  }
+  
+  .text-input {
+    @apply w-full mb-3 p-2 border-gray-300 border rounded
+  }
+
+  .text-input:focus {
+    @apply border-orange-300 rounded outline-0;
+  }
+
+  .form-div {
     @apply flex items-center justify-center min-h-screen bg-[#1f3349] 
   }
 
-  .form-text {
-    @apply text-gray-500 text-sm p-8 bg-white rounded shadow
+  .form {
+    @apply text-gray-500 text-sm p-10 bg-white rounded shadow w-1/5
   }
 
   .h2{

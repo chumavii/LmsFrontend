@@ -1,18 +1,13 @@
-import "./course-list"
-import CourseList from "./course-list";
-import Nav from "./navbar";
+import { useAuth } from "../contexts/auth-context"
 
 function Dashboard() {
+    const { fullName } = useAuth();
     return (
-        <div className="dashboard">
-            <div className="left-pane">
-                
+        <>
+            <div className="flex p-6 w-full ">
+                <h2>Hi, {fullName}</h2>
             </div>
-            <div className="right-pane">
-                <Nav />
-                <CourseList />
-            </div>
-        </div>
+        </>
     )
 }
 

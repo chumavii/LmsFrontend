@@ -5,6 +5,7 @@ interface AuthContextType {
     token: string | null;
     isLoggedIn: boolean;
     roles: string[];
+    fullName: string | null;
     login: (token: string) => void;
     logout: () => void;
     isInRole: (role: string) => boolean;
@@ -14,6 +15,7 @@ const AuthContext = createContext<AuthContextType>({
     token: null,
     isLoggedIn: false,
     roles: [],
+    fullName: null,
     login: () => { },
     logout: () => { },
     isInRole: () => false
@@ -30,7 +32,8 @@ interface JwtPayload {
 
 export function AuthProvider({ children }: Props) {
     const [token, setToken] = useState<string | null>(() => localStorage.getItem("token"));
-    const [roles, setRoles] = useState<string[]>([])
+    const [roles, setRoles] = useState<string[]>([]);
+    const [fullName, setFullName] = useState<string | null>(null);
 
     useEffect(() => {
         if (token) {
@@ -38,6 +41,7 @@ export function AuthProvider({ children }: Props) {
                 const decoded = jwtDecode<JwtPayload>(token);
                 const roleClaim = decoded.role;
                 setRoles(Array.isArray(roleClaim) ? roleClaim : [roleClaim]);
+                setFullName(decoded.FullName || null);
             } catch {
                 setRoles([]);
             }
@@ -60,7 +64,7 @@ export function AuthProvider({ children }: Props) {
     const isInRole = (role: string) => roles.includes(role);
 
     return(
-        <AuthContext.Provider value={{token, isLoggedIn: !!token, roles, login, logout, isInRole}}>
+        <AuthContext.Provider value={{token, isLoggedIn: !!token, roles, fullName, login, logout, isInRole}}>
             {children}
         </AuthContext.Provider>
     );

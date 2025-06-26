@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { type Course, getCourses } from '../services/api';
 
-export default function CourseList() {
+function CourseList() {
     const [courses, setCourses] = useState<Course[]>([]);
     const [error, setError] = useState<string | null>(null);
 
@@ -15,10 +15,8 @@ export default function CourseList() {
         return <p>Error: {error}</p>;
 
     return (
-        <div className="p-4">
-
-            <h1 className="text-2xl font-bold text-center mb-6">Learning Management System</h1>
-            <h2 className="text-xl font-bold mb-4">Courses</h2>
+        <div className="p-6">
+            <h2 className="text-xl font-medium mb-4">Courses</h2>
             <ul className="space-y-3">
                 {courses.map(course => (
                     <li key={course.id} className="border p-4 rounded shadow">
@@ -33,3 +31,5 @@ export default function CourseList() {
         </div>
     );
 }
+
+export default CourseList;
