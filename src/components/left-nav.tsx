@@ -1,13 +1,23 @@
 import { NavLink } from "react-router-dom";
-import { Home, BookOpen, Users, Settings } from "lucide-react";
-
+import { Home, List, FilePlus2, BookOpen, Users, Settings } from "lucide-react";
+import { useAuth } from "../contexts/auth-context";
 
 
 function LeftNav() {
+    const {roles} = useAuth();
+
     const menuItems = [
         {name: "Dashboard", path: "/", icon: <Home/>},
-        {name: "Courses", path: "/course-list", icon: <BookOpen />},
-        {name: "Users", path: "/users", icon: <Users />},
+        {name: "Courses", path: "/course-list", icon: <List />},        
+        ...(roles.includes("Instructor") ? [
+            {name: "Add Course", path: "/add-course", icon: <FilePlus2 />},
+        ] : []),
+        ...(roles.includes("Student") ? [
+            {name: "My Courses", path: "/my-courses", icon: <BookOpen />},
+        ] : []),
+        ...(roles.includes("Admin") ? [
+            {name: "Users", path: "/users", icon: <Users />},
+        ] : []),
         {name: "Settings", path: "/settings", icon: <Settings />}
     ];
 

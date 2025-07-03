@@ -5,12 +5,26 @@ import type { ReactNode } from "react";
 
 interface Props {
   children: ReactNode;
+  allowedRoles: string[];
 }
 
-function PrivateRoute({ children }: Props) {
-  const { isLoggedIn } = useAuth();
+function PrivateRoute({ children, allowedRoles }: Props) {
+  const { isLoggedIn, roles, authChecked } = useAuth();
+  const hasAllowedRole = roles.some(i => allowedRoles.includes(i));
 
-  return isLoggedIn ? children : <Navigate to="/login" />;
+  if (!authChecked) {
+    return <div>Loading...</div>;
+  }
+
+  if (!isLoggedIn) {
+    return <Navigate to="/login" />;
+  }
+
+  if (!hasAllowedRole) {
+    return <Navigate to="/unauthorized" />;
+  }
+
+  return children;
 }
 
 export default PrivateRoute

@@ -14,7 +14,28 @@ h1 {
   line-height: 1.1;
 }
 
-@layer components {
+table, td {
+  border: 1px solid #e3e3e3;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #1f3349;
+  padding: 8px;
+  color: #e7e7e7;
+  font-weight: normal;
+}
+
+@layer components {  
+  .h2{
+    @apply text-xl font-semibold mb-6 text-center text-orange-400
+  }
+
+  .h3{
+    @apply text-xl font-medium mb-6 text-center text-gray-600 
+  }
+
   .logo {
     @apply m-6 h-10
   }
@@ -23,13 +44,34 @@ h1 {
     @apply flex justify-between p-6 border-b-1 shadow-md border-gray-300
   }
   
+  .left-nav {
+    @apply space-y-2 p-4 mt-10
+  }
+
+  .left-pane {
+     @apply basis-1/5
+  }
+
+  .right-pane{
+    @apply bg-white basis-4/5
+  }
+  
+  .dashboard {
+    @apply grid grid-cols-3 border-1 border-gray-300 rounded-xl
+  }
+  
+  .layout{
+    @apply flex flex-row h-full w-full
+  }  
+
+  .card {
+    @apply border-gray-200 border-1 rounded-2xl place-items-center m-10 p-8
+  }
+  
   .logout-button {
     @apply flex 
   }
 
-  .left-nav {
-    @apply space-y-2 p-4 mt-10
-  }
 
   .left-nav-link {
     @apply flex gap-3 items-center p-2 rounded text-gray-300 font-medium hover:bg-[#355475]
@@ -48,7 +90,7 @@ h1 {
   }
   
   .text-input {
-    @apply w-full mb-3 p-2 border-gray-300 border rounded
+    @apply w-full mb-3 mt-1 p-2 border-gray-300 border rounded
   }
 
   .text-input:focus {
@@ -56,26 +98,15 @@ h1 {
   }
 
   .form-div {
-    @apply flex items-center justify-center min-h-screen bg-[#1f3349] 
+    @apply flex items-center justify-center min-h-screen
   }
 
   .form {
-    @apply text-gray-500 text-sm p-10 bg-white rounded shadow w-1/5
+    @apply text-gray-500 text-xs p-10 bg-white rounded-2xl w-1/4
   }
 
-  .h2{
-    @apply text-xl font-semibold mb-4 text-center
-  }
-
-  .dashboard{
-    @apply flex flex-row h-full
+  .input-title {
+    @apply font-semibold
   }
   
-  .left-pane {
-     @apply basis-1/5
-  }
-
-  .right-pane{
-    @apply bg-white basis-4/5
-  }
 }

@@ -1,5 +1,3 @@
-// src/components/LoginForm.tsx
-
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -41,19 +39,17 @@ function LoginForm({ onLoginSuccess }: LoginFormProps) {
       <form onSubmit={handleSubmit} className='form'>
         <h2 className="h2">Login</h2>
         {error && <p className=" text-xs text-red-500 mb-2">{error}</p>}
-        <p>Email</p>
+        <p className="input-title">Email</p>
         <input
           type="email"
-          placeholder="Enter email"
           value={email}
           onChange={e => setEmail(e.target.value)}
           required
           className="text-input"
         />
-        <p>Password</p>
+        <p className="input-title">Password</p>
         <input
           type="password"
-          placeholder="Enter password"
           value={password}
           onChange={e => setPassword(e.target.value)}
           required

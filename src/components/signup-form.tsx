@@ -24,7 +24,7 @@ function SignUpForm() {
                 headers: { 'Content-Type': 'application/json'},
                 body: JSON.stringify({email, fullName, password, role}),
             });
-            
+
             const data = await response.json();
 
             if(!response.ok){
@@ -43,25 +43,23 @@ function SignUpForm() {
             <form onSubmit={handleSubmit} className="form">
                 <h2 className="h2">Sign Up</h2>
                 {error && <p className="text-xs pb-2 text-red-600">{error}</p>}
-                <p>Full Name</p>
+                <p className="input-title">Full Name</p>
                 <input
                     type="text"
                     value={fullName}
                     onChange={e => setName(e.target.value)}
-                    placeholder="Enter full name"
                     required
                     className="text-input"
                 />
-                <p>Email</p>
+                <p className="input-title">Email</p>
                 <input
                     type="email"
                     value={email}
                     onChange={e => setEmail(e.target.value)}
-                    placeholder="Enter email"
                     required
                     className="text-input"
                 />
-                <p>Role</p>
+                <p className="input-title">Role</p>
                 <select
                     value={role}
                     onChange={e => setRole(e.target.value)}
@@ -73,27 +71,25 @@ function SignUpForm() {
                     <option value="Instructor">Instructor</option>
                 </select>
                 {role === "Instructor" && (<p className="text-xs text-yellow-600 pb-2"> Instructor accounts require admin approval before login is granted.</p>)}
-                <p>Password</p>
+                <p className="input-title">Password</p>
                 <input
                     type="password"
                     value={password}
                     onChange={e => setPassword(e.target.value)}
-                    placeholder="Enter password"
                     required
                     className="text-input"
                 />
-                <p>Confirm Password</p>
+                <p className="input-title">Confirm Password</p>
                 <input
                     type="password"
                     value={passwordTwo}
                     onChange={e => setPasswordTwo(e.target.value)}
-                    placeholder="Confirm password"
                     required
                     className="text-input"
                 />
                 <button type="submit" className="btn-primary">Sign Up</button>
                 <div className='text-xs p-6 text-center'>
-                    <p>Have an account? <Link to="/login" className='underline text-blue-400'>Login</Link></p>
+                    <p>Already have an account? <Link to="/login" className='underline text-blue-400'>Login</Link></p>
                 </div>
             </form>
         </div>

@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom";
 
 function Layout() {
     return (
-        <div className="dashboard">
+        <div className="layout">
             <div className="left-pane">
                 <LeftNav />
             </div>
