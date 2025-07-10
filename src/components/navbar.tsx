@@ -1,18 +1,16 @@
 import { useAuth } from '../contexts/auth-context.tsx';
+import {UserPen} from 'lucide-react'
 
 function Nav() {
   const { isLoggedIn, logout } = useAuth();
 
   return (
-    <div className="Nav">
-      {isLoggedIn && (
-        <button 
-          onClick={logout}
-          className="bg-[#1f3349]  hover:bg-gray-700 text-white px-4 py-2 rounded"
-        >
-          Logout
-        </button>
-      )}
+    <div className="nav">
+      <h1>Upskeel</h1>
+      <div className='logout-button'>
+        {isLoggedIn 
+          && <><div className='flex items-center p-2'><UserPen/></div> <button onClick={logout} className="btn-secondary">Logout</button></>}
+      </div>
     </div>
   );
 }

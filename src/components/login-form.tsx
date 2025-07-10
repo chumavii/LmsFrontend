@@ -1,12 +1,11 @@
-// src/components/LoginForm.tsx
-
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 interface LoginFormProps {
   onLoginSuccess: (token: string) => void;
 }
-export default function LoginForm({ onLoginSuccess }: LoginFormProps) {
+
+function LoginForm({ onLoginSuccess }: LoginFormProps) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -36,23 +35,23 @@ export default function LoginForm({ onLoginSuccess }: LoginFormProps) {
   }
 
   return (
-    <div className="form">
-      <form onSubmit={handleSubmit} className='form-text'>
+    <div className="form-div">
+      <form onSubmit={handleSubmit} className='form'>
         <h2 className="h2">Login</h2>
         {error && <p className=" text-xs text-red-500 mb-2">{error}</p>}
-        <p>Email</p>
+        <p className="input-title">Email</p>
         <input
           type="email"
-          placeholder="Enter email"
+          aria-label='email'
           value={email}
           onChange={e => setEmail(e.target.value)}
           required
           className="text-input"
         />
-        <p>Password</p>
+        <p className="input-title">Password</p>
         <input
           type="password"
-          placeholder="Enter password"
+          aria-label='password'
           value={password}
           onChange={e => setPassword(e.target.value)}
           required
@@ -61,9 +60,11 @@ export default function LoginForm({ onLoginSuccess }: LoginFormProps) {
         <button type="submit" className="btn-primary">Login</button>
         <div className='text-xs p-6 text-center'>
           <p>Forgot password</p>
-          <p>Don't have an account? Sign up</p>
+          <p>Don't have an account? <Link to="/signup" className='underline text-blue-400'>Sign up</Link></p>
         </div>
       </form>
     </div>
   );
 }
+
+export default LoginForm

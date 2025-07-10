@@ -6,44 +6,48 @@ body, #root {
   height: 100vh;
   width: 100vw;
   margin: 0;
-  background-color: #1f3349;
+  background-color: rgb(9, 32, 56);
 }
 
 h1 {
-  font-size: 3.2em;
+  font-size: 2.1em;
   line-height: 1.1;
 }
 
-@layer components {
-  .Nav {
-    @apply flex justify-end p-4 border-b-1 shadow-md border-gray-300
-  }
+table, td {
+  border: 1px solid #e3e3e3;
+  padding: 8px;
+  text-align: left;
+}
 
-  .btn-primary {
-    background-color: #1f3349;
-    @apply w-full text-white px-4 py-3 rounded hover:bg-slate-700 transition;
-  }
-  
-    .text-input {
-    @apply w-full mb-3 p-2 border-gray-300 border rounded;
-  }
+th {
+  background-color: #1f3349;
+  padding: 8px;
+  color: #e7e7e7;
+  font-weight: normal;
+}
 
-  .form {
-    @apply flex items-center justify-center min-h-screen bg-[#1f3349] 
-  }
-
-  .form-text {
-    @apply text-gray-500 text-sm p-8 bg-white rounded shadow
-  }
-
+@layer components {  
   .h2{
-    @apply text-xl font-semibold mb-4 text-center
+    @apply text-xl font-semibold mb-6 text-center text-orange-400
   }
 
-  .dashboard{
-    @apply flex flex-row h-full
+  .h3{
+    @apply text-xl font-medium mb-6 text-center text-gray-600 
+  }
+
+  .logo {
+    @apply m-6 h-10
   }
   
+  .nav {
+    @apply flex justify-between p-6 border-b-1 shadow-md border-gray-300
+  }
+  
+  .left-nav {
+    @apply space-y-2 p-4 mt-10
+  }
+
   .left-pane {
      @apply basis-1/5
   }
@@ -51,4 +55,58 @@ h1 {
   .right-pane{
     @apply bg-white basis-4/5
   }
+  
+  .dashboard {
+    @apply grid grid-cols-3 border-1 border-gray-300 rounded-xl
+  }
+  
+  .layout{
+    @apply flex flex-row h-full w-full
+  }  
+
+  .card {
+    @apply border-gray-200 border-1 rounded-2xl place-items-center m-10 p-8
+  }
+  
+  .logout-button {
+    @apply flex 
+  }
+
+
+  .left-nav-link {
+    @apply flex gap-3 items-center p-2 rounded text-gray-300 font-medium hover:bg-[#355475]
+  }
+
+  .left-nav-link-active {
+    @apply flex gap-3 items-center p-2 rounded text-orange-300 font-medium hover:bg-[#355475]
+  }
+
+  .btn-primary {
+    @apply bg-[#1f3349] w-full text-white px-4 py-3 rounded hover:bg-slate-700 transition
+  }
+
+  .btn-secondary {
+    @apply bg-orange-400 hover:bg-orange-500 text-white px-4 py-2 rounded
+  }
+  
+  .text-input {
+    @apply w-full mb-3 mt-1 p-2 border-gray-300 border rounded
+  }
+
+  .text-input:focus {
+    @apply border-orange-300 rounded outline-0;
+  }
+
+  .form-div {
+    @apply flex items-center justify-center min-h-screen
+  }
+
+  .form {
+    @apply text-gray-500 text-xs p-10 bg-white rounded-2xl w-1/4
+  }
+
+  .input-title {
+    @apply font-semibold
+  }
+  
 }
