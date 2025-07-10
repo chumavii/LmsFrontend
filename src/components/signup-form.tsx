@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+const BASE_URL = import.meta.env.VITE_API_BASE_URL
 
 function SignUpForm() {
     const [fullName, setName] = useState('')
@@ -19,7 +20,7 @@ function SignUpForm() {
             if(password != passwordTwo) 
                 return setError('Passwords do not match')
 
-            const response = await fetch('https://localhost:8081/api/auth/register', {
+            const response = await fetch(`${BASE_URL}/auth/register`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json'},
                 body: JSON.stringify({email, fullName, password, role}),
