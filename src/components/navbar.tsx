@@ -6,7 +6,7 @@ function Nav() {
 
   return (
     <div className="nav">
-      <h1>Learnify</h1>
+      <h1>Upskeel</h1>
       <div className='logout-button'>
         {isLoggedIn 
           && <><div className='flex items-center p-2'><UserPen/></div> <button onClick={logout} className="btn-secondary">Logout</button></>}

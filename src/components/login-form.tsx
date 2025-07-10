@@ -42,6 +42,7 @@ function LoginForm({ onLoginSuccess }: LoginFormProps) {
         <p className="input-title">Email</p>
         <input
           type="email"
+          aria-label='email'
           value={email}
           onChange={e => setEmail(e.target.value)}
           required
@@ -50,6 +51,7 @@ function LoginForm({ onLoginSuccess }: LoginFormProps) {
         <p className="input-title">Password</p>
         <input
           type="password"
+          aria-label='password'
           value={password}
           onChange={e => setPassword(e.target.value)}
           required
