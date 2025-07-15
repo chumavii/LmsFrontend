@@ -45,37 +45,39 @@ function LoginForm({ onLoginSuccess }: LoginFormProps) {
   }
 
   return (
-    <div className="form-div">
-      <form onSubmit={handleSubmit} className='form'>
-        <h2 className="h2">Login</h2>
-        {error && <p className=" text-xs text-red-500 mb-2">{error}</p>}
-        <p className="input-title">Email</p>
-        <input
-          type="email"
-          aria-label='email'
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-          required
-          className="text-input"
-        />
-        <p className="input-title">Password</p>
-        <input
-          type="password"
-          aria-label='password'
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-          required
-          className="text-input"
-        />
-        <button type="submit" className="btn-primary">Login</button>
-        <div className='text-xs p-6 text-center'>
-          <p>Forgot password</p>
-          <p>Don't have an account? <Link to="/signup" className='underline text-blue-400'>Sign up</Link></p>
-          <p>Or</p>
-          <p onClick={loginAsGuest} className='underline text-blue-400 cursor-pointer'> Login as a guest </p>
-        </div>
-      </form>
-    </div>
+    <>
+      <div className="form-div">
+        <form onSubmit={handleSubmit} className='form'>
+          <h2 className="h2">Login</h2>
+          {error && <p className=" text-xs text-red-500 mb-2">{error}</p>}
+          <p className="input-title">Email</p>
+          <input
+            type="email"
+            aria-label='email'
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            required
+            className="text-input"
+          />
+          <p className="input-title">Password</p>
+          <input
+            type="password"
+            aria-label='password'
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            required
+            className="text-input"
+          />
+          <p className="flex justify-end underline pb-3 text-[10px] cursor-pointer">Forgot password?</p>
+          <button type="submit" className="btn-primary">Login</button>
+          <div className='text-xs p-6 text-center'>
+            <p>Don't have an account? <Link to="/signup" className='underline text-blue-400'>Sign up</Link></p>
+            <p>Or</p>
+            <p onClick={loginAsGuest} className='underline text-blue-400 cursor-pointer'> Login as a guest </p>
+          </div>
+        </form>
+      </div>
+    </>
   );
 }
 

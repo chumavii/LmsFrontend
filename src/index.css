@@ -90,7 +90,8 @@ th {
   }
   
   .text-input {
-    @apply w-full mb-3 mt-1 p-2 border-gray-300 border rounded
+    @apply w-full mb-3 mt-1 p-2 border-gray-300 border rounded text-base;
+    font-size: 16px; /* Explicitly set for mobile */
   }
 
   .text-input:focus {
@@ -102,7 +103,7 @@ th {
   }
 
   .form {
-    @apply text-gray-500 text-xs p-10 bg-white rounded-2xl w-full max-w-sm;
+    @apply text-gray-500 text-xs p-10 sm:bg-white rounded-2xl w-full max-w-sm bg-[#092038] ;
   }
 
   .input-title {
