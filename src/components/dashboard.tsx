@@ -9,7 +9,7 @@ function Dashboard() {
         <div className="p-8 w-full ">
             <h2 className="pb-4 text-gray-600 text-lg font-bold">Hi, {fullName}</h2>
             <div className="dashboard">
-                <div className="col-span-3 pl-10 pt-8 text-gray-600 text-sm italic">
+                <div className="col-span-3 p-2 sm:p-4 md:p-6 text-gray-600 text-sm italic">
                     <p>Lorem Ipsum is simply dummy text</p>
                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
                 </div>
