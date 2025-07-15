@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL
-
 interface LoginFormProps {
   onLoginSuccess: (token: string) => void;
 }
+
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const GUEST_EMAIL = import.meta.env.VITE_GUEST_EMAIL;
+const GUEST_PASSWORD = import.meta.env.VITE_GUEST_PASSWORD;
 
 function LoginForm({ onLoginSuccess }: LoginFormProps) {
   const [email, setEmail] = useState('');
@@ -13,10 +15,8 @@ function LoginForm({ onLoginSuccess }: LoginFormProps) {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
+  async function loginUser(email: string, password: string) {
     setError('');
-
     try {
       const response = await fetch(`${BASE_URL}/auth/login`, {
         method: 'POST',
@@ -24,16 +24,24 @@ function LoginForm({ onLoginSuccess }: LoginFormProps) {
         body: JSON.stringify({ email, password }),
       });
 
-      if (!response.ok)
-        throw new Error('Invalid credentials');
+      if (!response.ok) throw new Error('Invalid credentials');
 
       const data = await response.json();
       localStorage.setItem('token', data.token);
       onLoginSuccess(data.token);
-      navigate('/'); // Redirect after successful login
+      navigate('/');
     } catch (err: any) {
       setError(err.message);
     }
+  }
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    loginUser(email, password);
+  }
+
+  function loginAsGuest() {
+    loginUser(GUEST_EMAIL, GUEST_PASSWORD);
   }
 
   return (
@@ -63,10 +71,12 @@ function LoginForm({ onLoginSuccess }: LoginFormProps) {
         <div className='text-xs p-6 text-center'>
           <p>Forgot password</p>
           <p>Don't have an account? <Link to="/signup" className='underline text-blue-400'>Sign up</Link></p>
+          <p>Or</p>
+          <p onClick={loginAsGuest} className='underline text-blue-400 cursor-pointer'> Login as a guest </p>
         </div>
       </form>
     </div>
   );
 }
 
-export default LoginForm
+export default LoginForm;

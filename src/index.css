@@ -33,7 +33,7 @@ th {
   }
 
   .h3{
-    @apply text-xl font-medium mb-6 text-center text-gray-600 
+    @apply text-sm font-medium mb-6 text-center text-gray-600 
   }
 
   .logo {
@@ -65,7 +65,7 @@ th {
   }  
 
   .card {
-    @apply border-gray-200 border-1 rounded-2xl place-items-center m-10 p-8
+    @apply border-gray-200 border rounded-2xl place-items-center m-2 sm:m-6 p-2 sm:p-8;
   }
   
   .logout-button {
@@ -102,7 +102,7 @@ th {
   }
 
   .form {
-    @apply text-gray-500 text-xs p-10 bg-white rounded-2xl w-1/4
+    @apply text-gray-500 text-xs p-10 bg-white rounded-2xl w-full max-w-sm;
   }
 
   .input-title {
