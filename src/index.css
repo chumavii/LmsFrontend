@@ -6,7 +6,7 @@ body, #root {
   height: 100vh;
   width: 100vw;
   margin: 0;
-  background-color: rgb(9, 32, 56);
+  background-color: #092038;
 }
 
 h1 {
@@ -103,7 +103,7 @@ th {
   }
 
   .form {
-    @apply text-gray-500 text-xs p-10 sm:bg-white rounded-2xl w-full max-w-sm bg-[#092038] ;
+    @apply text-gray-300 sm:text-gray-500 text-xs p-10 sm:bg-white rounded-2xl w-full max-w-sm bg-[#092038] ;
   }
 
   .input-title {
