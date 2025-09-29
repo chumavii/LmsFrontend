@@ -81,7 +81,7 @@ th {
   }
 
   .layout {
-    @apply flex h-screen w-full
+    @apply flex min-h-full w-screen
   }
 
   .card {

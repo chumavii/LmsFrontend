@@ -11,7 +11,7 @@ function Dashboard() {
             <div className="dashboard">
                 <div className="col-span-full p-2 sm:p-4 md:p-6 text-gray-600 text-sm italic">
                     <p>We’re glad to have you back! </p>
-                    <p>Explore your courses, manage your content, or check your progress — everything you need to learn and grow is right here.</p>
+                    <p>Explore your courses, manage your content, or check your progress.</p>
                 </div>
                 {roles.includes("Student") && <Link to="/my-courses"><div className="card h3"><BookOpen/>Enrolled Courses</div></Link>}
                 {roles.includes("Student") && <div className="card h3"><Calendar/>Upcoming Lessons</div>}

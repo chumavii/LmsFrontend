@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { Home, List, FilePlus2, BookOpen, Users, Settings } from "lucide-react";
 import { useAuth } from "../contexts/auth-context";
 
@@ -23,7 +23,9 @@ function LeftNav({ onLinkClick }: LeftNavProps) {
         <>
             <div className="flex flex-col h-full overflow-y-auto">
                 <div className="flex-shrink-0">
-                    <img src="/logo.PNG" className="logo" />
+                    <Link to="/" onClick={onLinkClick}>
+                        <img src="/logo.PNG" className="logo " />
+                    </Link>
                 </div>
                 <nav className="left-nav">
                     {menuItems.map((item) => (
