@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { type User, getUsers } from "../services/api";
-import { Loader2, AlertCircle, Plus, Filter, ChevronDown } from "lucide-react";
+import { Loader2, AlertCircle, Filter, ChevronDown } from "lucide-react";
 
 function Users() {
   const [users, setUsers] = useState<User[]>([]);
