@@ -1,7 +1,8 @@
 @import "tailwindcss";
 
 
-body, #root {
+body,
+#root {
   --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
   height: 100vh;
   width: 100vw;
@@ -9,12 +10,8 @@ body, #root {
   background-color: #092038;
 }
 
-h1 {
-  font-size: 2.1em;
-  line-height: 1.1;
-}
-
-table, td {
+table,
+td {
   border: 1px solid #e3e3e3;
   padding: 8px;
   text-align: left;
@@ -27,51 +24,111 @@ th {
   font-weight: normal;
 }
 
-@layer components {  
-  .h2{
-    @apply text-xl font-semibold mb-6 text-center text-orange-400
+@layer components {
+  .h1 {
+    font-size: 1.9em;
+    line-height: 1.1;
   }
 
-  .h3{
-    @apply text-sm font-medium mb-6 text-center text-gray-600 
+  .h2 {
+    @apply text-lg sm:text-2xl text-orange-300 text-center font-bold mb-6 
+  }
+
+  .h3 {
+    @apply text-sm font-medium mb-6 text-center text-gray-600
   }
 
   .logo {
     @apply m-6 h-10
   }
-  
+
   .nav {
     @apply flex justify-between p-6 border-b-1 shadow-md border-gray-300
   }
-  
+
   .left-nav {
     @apply space-y-2 p-4 mt-10
   }
 
+  /* Sidebar responsive classes */
   .left-pane {
-     @apply basis-1/5
+    @apply fixed inset-y-0 left-0 z-40 w-72 bg-[#092038] shadow-lg transform transition-transform duration-300 ease-in-out md:relative md:translate-x-0 md:block;
   }
 
-  .right-pane{
-    @apply bg-white basis-4/5
+  .left-pane-open {
+    @apply translate-x-0;
   }
-  
+
+  .left-pane-closed {
+    @apply -translate-x-full;
+  }
+
+  /* Overlay for mobile */
+  .sidebar-overlay {
+    @apply fixed inset-0 bg-black opacity-50 z-30 md:hidden;
+  }
+
+  .right-pane {
+    @apply bg-white flex flex-col flex-1
+  }
+
+  .footer {
+    @apply p-4 text-gray-600 text-sm text-center
+  }
+
   .dashboard {
-    @apply grid grid-cols-3 border-1 border-gray-300 rounded-xl
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 ;
   }
-  
-  .layout{
-    @apply flex flex-row h-full w-full
-  }  
+
+  .dashboard-greeting {
+    @apply p-6 sm:p-8 rounded-2xl mb-4 text-white shadow-lg;
+    background: linear-gradient(135deg, #1493FE, #1f3349); /* bright sky blue to rich navy */
+  }
+
+  .dashboard-greeting h2 {
+    @apply text-lg sm:text-2xl font-bold;
+  }
+
+  .dashboard-greeting p {
+    @apply text-sm sm:text-base mt-2 text-white;
+  }
+
+  .layout {
+    @apply flex min-h-full w-screen
+  }
 
   .card {
-    @apply border-gray-200 border rounded-2xl place-items-center m-2 sm:m-6 p-2 sm:p-8;
-  }
-  
-  .logout-button {
-    @apply flex 
+    @apply border-gray-200 shadow-md hover:shadow-xl transition border rounded-2xl flex flex-col justify-center items-center w-full sm:w-auto p-6 sm:p-8 m-0 sm:m-2 text-center;
+    min-height: 120px; /* consistent height */
+    transition: transform 0.2s ease, background-color 0.2s ease;
   }
 
+  .card:hover {
+    @apply bg-[#f9fcfe] transform scale-105;
+  }
+
+  .card svg {
+    @apply w-6 h-6 mb-2 text-orange-300;
+  }
+
+  .card span {
+    @apply font-medium text-gray-700;
+  }
+
+  /* Mobile responsiveness tweaks */
+  @media (max-width: 640px) {
+    .dashboard {
+      @apply grid-cols-1;
+    }
+
+    .card {
+      @apply w-full;
+    }
+  }
+
+  .logout-button {
+    @apply absolute right-0 mt-2 w-32 bg-white border border-gray-300 shadow-lg transition-opacity duration-200
+  }
 
   .left-nav-link {
     @apply flex gap-3 items-center p-2 rounded text-gray-300 font-medium hover:bg-[#355475]
@@ -82,16 +139,18 @@ th {
   }
 
   .btn-primary {
-    @apply bg-[#1f3349] w-full text-white px-4 py-3 rounded hover:bg-slate-700 transition
+    @apply bg-[#1f3349] w-full text-white px-4 py-3 rounded hover:bg-slate-700 transition;
+    cursor: pointer;
   }
 
   .btn-secondary {
-    @apply bg-orange-400 hover:bg-orange-500 text-white px-4 py-2 rounded
+    @apply w-full bg-white text-gray-700 hover:bg-[#1f3349] hover:text-white px-4 py-2
   }
-  
+
   .text-input {
     @apply w-full mb-3 mt-1 p-2 border-gray-300 border rounded text-base;
-    font-size: 16px; /* Explicitly set for mobile */
+    font-size: 16px;
+    /* Explicitly set for mobile */
   }
 
   .text-input:focus {
@@ -99,15 +158,15 @@ th {
   }
 
   .form-div {
-    @apply flex items-center justify-center min-h-screen
+    @apply flex flex-col items-center justify-center min-h-screen
   }
 
   .form {
-    @apply text-gray-300 sm:text-gray-500 text-xs p-10 sm:bg-white rounded-2xl w-full max-w-sm bg-[#092038] ;
+    @apply text-gray-300 sm:text-gray-500 text-xs p-10 sm:bg-white rounded-2xl w-full max-w-sm bg-[#092038];
   }
 
   .input-title {
     @apply font-semibold
   }
-  
+
 }

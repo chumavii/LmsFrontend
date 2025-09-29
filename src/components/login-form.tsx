@@ -47,6 +47,7 @@ function LoginForm({ onLoginSuccess }: LoginFormProps) {
   return (
     <>
       <div className="form-div">
+        <img src="/whitelogo.png" alt="Upskeel Logo" className="h-8 mb-5 block md:hidden" />
         <form onSubmit={handleSubmit} className='form'>
           <h2 className="h2">Login</h2>
           {error && <p className=" text-xs text-red-500 mb-2">{error}</p>}
@@ -69,7 +70,7 @@ function LoginForm({ onLoginSuccess }: LoginFormProps) {
             className="text-input"
           />
           <p className="flex justify-end underline pb-3 text-[10px] cursor-pointer">Forgot password?</p>
-          <button type="submit" className="btn-primary">Login</button>
+          <button type="submit" className="btn-primary border-1 border-[#4e8ccf63]">Login</button>
           <div className='text-xs p-6 text-center'>
             <p>Don't have an account? <Link to="/signup" className='underline text-blue-400'>Sign up</Link></p>
             <p>Or</p>

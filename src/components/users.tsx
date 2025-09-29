@@ -1,45 +1,223 @@
-import { useEffect, useState } from 'react';
-import { type User, getUsers } from '../services/api';
-
+import { useEffect, useState, useRef } from "react";
+import { type User, getUsers } from "../services/api";
+import { Loader2, AlertCircle, Filter, ChevronDown } from "lucide-react";
 
 function Users() {
+  const [users, setUsers] = useState<User[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string>();
+  const [search, setSearch] = useState("");
+  const [roleFilter, setRoleFilter] = useState("");
+  const [selectedUsers, setSelectedUsers] = useState<string[]>([]);
+  const [showFilters, setShowFilters] = useState(false);
+  const [showActions, setShowActions] = useState(false);
+  const filterRef = useRef<HTMLDivElement>(null);
 
-    const [users, setUser] = useState<User[]>([]);
-    const [error, setError] = useState<string>();
+  useEffect(() => {
+    getUsers()
+      .then((data) => setUsers(data))
+      .catch((err) => setError(err.message))
+      .finally(() => setLoading(false));
+  }, []);
 
-    useEffect(() => {
-        getUsers()
-            .then(setUser)
-            .catch(err => setError(err.message))
-    }, []);
-
-
+  const filteredUsers = users.filter((u) => {
     return (
-        <div className='p-8 text-gray-600'>
-            <h2 className="text-xl font-medium mb-4">Users</h2>
-            {error && error}
-            <table className='w-full text-sm '>
-                <tr>
-                    <th>NAME</th>
-                    <th>EMAIL</th>
-                    <th>ROLES</th>
-                </tr>
-                {users.map(user => (
-                    <tr key={user.email}>
-                        <td>
-                            {user.fullName}
-                        </td>
-                        <td>
-                            {user.email}
-                        </td>
-                        <td>
-                            {user.roles}
-                        </td>
-                    </tr>
-                ))}
-            </table>
+      (!roleFilter || u.roles.includes(roleFilter)) &&
+      (!search ||
+        u.fullName.toLowerCase().includes(search.toLowerCase()) ||
+        u.email.toLowerCase().includes(search.toLowerCase()))
+    );
+  });
+
+  const toggleSelect = (email: string) => {
+    setSelectedUsers((prev) =>
+      prev.includes(email)
+        ? prev.filter((e) => e !== email)
+        : [...prev, email]
+    );
+  };
+
+  // Click outside to close filter dropdown
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (filterRef.current && !filterRef.current.contains(event.target as Node)) {
+        setShowFilters(false);
+      }
+      setShowActions(false); // close actions when clicking outside
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const handleAction = (action: string) => {
+    console.log("Action:", action, "on", selectedUsers);
+    setShowActions(false);
+    setSelectedUsers([]); // optionally reset selection
+  };
+
+  return (
+    <div className="p-8 sm:p-6 text-gray-700">
+      <h2 className="text-2xl font-bold mb-4">Users</h2>
+
+      {/* Top Actions */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4 w-full">
+        {/* Actions Dropdown */}
+        <div className="relative w-full sm:w-auto">
+          <button
+            disabled={selectedUsers.length === 0}
+            onClick={() => setShowActions((prev) => !prev)}
+            className={`btn-primary flex items-center gap-2 px-4 py-2 w-full sm:w-auto justify-between ${
+              selectedUsers.length === 0 ? "opacity-50 cursor-not-allowed" : ""
+            }`}
+          >
+            Actions <ChevronDown className="w-4 h-4" />
+          </button>
+
+          {showActions && selectedUsers.length > 0 && (
+            <div className="absolute mt-2 w-full sm:w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-10 p-2 flex flex-col gap-1">
+              {["Activate", "Deactivate", "Change role", "Delete"].map((a) => (
+                <button
+                  key={a}
+                  onClick={() => handleAction(a)}
+                  className="text-left w-full px-2 py-1 hover:bg-gray-100 rounded text-sm"
+                >
+                  {a}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
-    )
+
+        {/* Search + Filter */}
+        <div className="flex w-full sm:w-auto gap-2 items-center relative" ref={filterRef}>
+          <input
+            type="text"
+            placeholder="Search by name or email"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="text-input flex-1 max-w-sm"
+          />
+          <button
+            className="p-2 rounded hover:bg-gray-200"
+            onClick={() => setShowFilters((prev) => !prev)}
+          >
+            <Filter className="w-5 h-5" />
+          </button>
+
+          {showFilters && (
+            <div className="absolute right-0 top-full mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg p-4 z-10">
+              <label className="block mb-2 text-sm font-medium">Role</label>
+              <select
+                value={roleFilter}
+                onChange={(e) => setRoleFilter(e.target.value)}
+                className="text-input w-full"
+              >
+                <option value="">All Roles</option>
+                <option value="Student">Student</option>
+                <option value="Instructor">Instructor</option>
+                <option value="Admin">Admin</option>
+              </select>
+              <button
+                onClick={() => setRoleFilter("")}
+                className="mt-2 text-sm underline text-blue-500"
+              >
+                Reset
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Loading */}
+      {loading && (
+        <div className="flex justify-center items-center py-10">
+          <Loader2 className="animate-spin w-6 h-6 text-gray-500" />
+          <span className="ml-2 text-gray-500">Loading users...</span>
+        </div>
+      )}
+
+      {/* Error */}
+      {error && (
+        <div className="flex items-center gap-2 text-red-600 bg-red-50 p-4 rounded-lg mb-4">
+          <AlertCircle className="w-5 h-5" />
+          <span>{error}</span>
+        </div>
+      )}
+
+      {/* Users Table for Desktop */}
+      {!loading && !error && (
+        <div className="overflow-x-auto rounded-lg border border-gray-200 hidden sm:block">
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead className="bg-gray-100 text-gray-600 text-sm uppercase">
+              <tr>
+                <th className="px-4 py-3">
+                  <input
+                    type="checkbox"
+                    onChange={(e) =>
+                      setSelectedUsers(
+                        e.target.checked
+                          ? filteredUsers.map((u) => u.email)
+                          : []
+                      )
+                    }
+                    checked={
+                      filteredUsers.length > 0 &&
+                      selectedUsers.length === filteredUsers.length
+                    }
+                  />
+                </th>
+                <th className="px-4 py-3 text-left">Name</th>
+                <th className="px-4 py-3 text-left">Email</th>
+                <th className="px-4 py-3 text-left">Roles</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-200 text-sm">
+              {filteredUsers.map((user) => (
+                <tr key={user.email} className="hover:bg-gray-50">
+                  <td className="px-4 py-3 text-center">
+                    <input
+                      type="checkbox"
+                      checked={selectedUsers.includes(user.email)}
+                      onChange={() => toggleSelect(user.email)}
+                    />
+                  </td>
+                  <td className="px-4 py-3 font-medium">{user.fullName}</td>
+                  <td className="px-4 py-3">{user.email}</td>
+                  <td className="px-4 py-3">
+                    {Array.isArray(user.roles)
+                      ? user.roles.join(", ")
+                      : user.roles}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {/* Card layout for Mobile */}
+      {!loading && !error && (
+        <div className="sm:hidden flex flex-col gap-2">
+          {filteredUsers.map((user) => (
+            <div key={user.email} className="bg-white p-4 rounded-lg shadow flex flex-col gap-2">
+              <div className="flex justify-between items-center">
+                <span className="font-medium">{user.fullName}</span>
+                <input
+                  type="checkbox"
+                  checked={selectedUsers.includes(user.email)}
+                  onChange={() => toggleSelect(user.email)}
+                />
+              </div>
+              <p className="text-sm text-gray-500">{user.email}</p>
+              <p className="text-sm text-gray-500">
+                {Array.isArray(user.roles) ? user.roles.join(", ") : user.roles}
+              </p>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default Users;
