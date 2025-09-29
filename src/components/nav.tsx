@@ -32,7 +32,7 @@ function Nav({ onMenuClick }: NavProps) {
           <Menu className="w-6 h-6" />
         </button>
         <Link to="/">
-          <img src="/logo.png" className="logo m-0" />
+          <img src="/mainlogo.png" className="logo m-0" />
         </Link>
       </div>
       <div className='flex'>
