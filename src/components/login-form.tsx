@@ -47,7 +47,7 @@ function LoginForm({ onLoginSuccess }: LoginFormProps) {
   return (
     <>
       <div className="form-div">
-        <img src="/logo.PNG" alt="Upskeel Logo" className="h-8 mb-5 block md:hidden" />
+        <img src="/whitelogo.png" alt="Upskeel Logo" className="h-8 mb-5 block md:hidden" />
         <form onSubmit={handleSubmit} className='form'>
           <h2 className="h2">Login</h2>
           {error && <p className=" text-xs text-red-500 mb-2">{error}</p>}

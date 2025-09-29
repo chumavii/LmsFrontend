@@ -24,7 +24,7 @@ function LeftNav({ onLinkClick }: LeftNavProps) {
             <div className="flex flex-col h-full overflow-y-auto">
                 <div className="flex-shrink-0">
                     <Link to="/" onClick={onLinkClick}>
-                        <img src="/logo.PNG" className="logo " />
+                        <img src="/favicon.png" className="logo h-10" />
                     </Link>
                 </div>
                 <nav className="left-nav">
