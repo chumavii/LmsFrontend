@@ -12,6 +12,8 @@ import Unauthorized from "./components/unauthorized.tsx";
 import Settings from "./components/settings.tsx";
 import MyCourses from "./components/my-courses.tsx";
 import AddCourse from "./components/add-course.tsx";
+import ForgotPasswordForm from "./components/forgot-password.tsx";
+import ResetPasswordForm from "./components/reset-password.tsx";
 
 function App() {
   const { login } = useAuth(); // This is from your AuthContext
@@ -30,6 +32,8 @@ function App() {
         <Routes>
           <Route path="/login" element={<LoginForm onLoginSuccess={handleLoginSuccess} />} />
           <Route path="/signup" element={<SignupForm />} />
+          <Route path="/forgot-password" element={<ForgotPasswordForm />} />
+          <Route path="/reset-password" element={<ResetPasswordForm />} />
           <Route element={<PrivateRoute allowedRoles={generalRoles}><Layout /></PrivateRoute>}>
             <Route path="/" element={<Dashboard />} />
             <Route path="/course-list" element={<CourseList />} />

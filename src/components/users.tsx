@@ -56,8 +56,8 @@ function Users() {
   };
 
   return (
-    <div className="p-8 sm:p-6 text-gray-700">
-      <h2 className="text-2xl font-bold mb-4">Users</h2>
+    <div className="page-div sm:p-6">
+      <h2 className="text-2xl font-bold mb-4 text-[#4e8ccf]">Users</h2>
 
       {/* Top Actions */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4 w-full">
