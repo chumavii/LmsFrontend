@@ -24,7 +24,7 @@ function Nav({ onMenuClick }: NavProps) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  
+
   return (
     <div className="nav relative">
       <div className="flex items-center gap-2">
@@ -37,25 +37,37 @@ function Nav({ onMenuClick }: NavProps) {
       </div>
       <div className='flex'>
         {isLoggedIn &&
-        <div ref={menuRef} className="relative">
-          <button
-            onClick={() => setMenuOpen((prev) => !prev)}
-            className="p-2 rounded-full hover:bg-gray-200"
-          >
-            <UserPen />
-          </button>
+          <div ref={menuRef} className="relative">
+            <button
+              onClick={() => setMenuOpen((prev) => !prev)}
+              className="p-2 rounded-full hover:bg-gray-200"
+            >
+              <UserPen className='text-[#f97316]'/>
+            </button>
 
-          {menuOpen && (
-            <div className="logout-button">
-              <button
-                onClick={logout}
-                className="btn-secondary"
-              >
-                Logout
-              </button>
-            </div>
-          )}
-        </div>
+            {menuOpen && (
+              <div className="logout-button flex flex-col">
+                <Link
+                  to="/settings"
+                  className="btn-secondary text-left w-full"
+                  onClick={() => setMenuOpen(false)} // <-- closes menu
+                >
+                  Edit Profile
+                </Link>
+                <button
+                  onClick={() => {
+                    logout();
+                    setMenuOpen(false); // optional: close menu after logout too
+                  }}
+                  className="btn-secondary text-left w-full"
+                >
+                  Logout
+                </button>
+              </div>
+            )}
+
+
+          </div>
         }
       </div>
     </div>

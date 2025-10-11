@@ -6,7 +6,7 @@ function Dashboard() {
     const { fullName, roles } = useAuth();
 
     return (
-        <div className="p-8 w-full ">
+        <div className="page-div">
             <div className="dashboard-greeting">
                 <h2 >Hi, {fullName} 👋</h2>
                 <p className="text-sm sm:text-base mt-2 opacity-90">

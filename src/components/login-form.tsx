@@ -69,7 +69,12 @@ function LoginForm({ onLoginSuccess }: LoginFormProps) {
             required
             className="text-input"
           />
-          <p className="flex justify-end underline pb-3 text-[10px] cursor-pointer">Forgot password?</p>
+          <p
+            onClick={() => navigate('/forgot-password')}
+            className="flex justify-end underline pb-3 text-[10px] cursor-pointer"
+          >
+            Forgot password?
+          </p>
           <button type="submit" className="btn-primary border-1 border-[#4e8ccf63]">Login</button>
           <div className='text-xs p-6 text-center'>
             <p>Don't have an account? <Link to="/signup" className='underline text-blue-400'>Sign up</Link></p>
